@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.mapper.AccountMapper">
+
+
+    <insert id="register" parameterType="Account">
+        insert into account( uid, private_key, public_key, address, password
+                           , iv, phone, nick_name)
+        values (#{uid}, #{private_key}, #{public_key}, #{address}, #{password},
+                #{iv}, #{phone}, #{nick_name})
+    </insert>
+
+    <select id="getAccountByPhone" resultType="Account">
+        select *
+        from account
+        where phone = #{phone}
+    </select>
+
+
+</mapper>

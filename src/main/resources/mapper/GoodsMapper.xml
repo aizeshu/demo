@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cl.mapper.GoodsMapper">
+
+    <select id="findGoodsById" parameterType="String" resultType="Goods">
+        select *
+        from goods
+        where gid = #{gid}
+    </select>
+
+    <select id="findGoodsByKeyWords" parameterType="String" resultType="Goods">
+        select *
+        from goods
+        where good_name like concat('%', #{keywords}, '%');
+    </select>
+
+
+    <insert id="insertGoods" parameterType="Goods">
+        insert into goods (pic_hash, data_hash, good_name, own_id, create_id)
+        values (#{pic_hash}, #{data_hash}, #{good_name}, #{own_id}, #{create_id})
+    </insert>
+
+
+    <select id="getGoodsDetailsByHash" parameterType="String" resultType="Goods">
+        select *
+        from goods
+        where hash = #{hash}
+    </select>
+
+    <update id="updateOwn" parameterType="String">
+        update goods
+        set own_id = #{buy_id}
+        where data_hash = #{data_hash}
+    </update>
+
+    <select id="findAllGoods" resultType="Goods">
+        select *
+        from goods
+    </select>
+
+    <select id="findGoodsByCate" parameterType="String" resultType="Goods">
+        select *
+        from goods
+        where p_cate_id = #{cate_id}
+    </select>
+
+
+    <select id="getGoodsDetailsByUid" parameterType="String" resultType="Goods">
+        select *
+        from goods
+        where own_id = #{uid}
+    </select>
+
+
+    <update id="updateClickNum" parameterType="String">
+        update goods
+        set clickNum= clickNum + 1
+        where data_hash = #{data_hash}
+    </update>
+
+    <select id="getRecommendGoods" resultType="Goods">
+        select *
+        from goods
+        order by clickNum desc limit 0,10
+    </select>
+
+
+</mapper>
